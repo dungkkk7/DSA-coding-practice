@@ -1,0 +1,39 @@
+class Solution {
+
+    public List<List<Integer>> threeSum(int[] arr) {
+        List<List<Integer>> threeSum = new ArrayList<>();
+        Arrays.sort(arr);
+
+        for (int i = 0; i < arr.length - 2; i++) {
+            int left = i + 1;
+            int right = arr.length - 1;
+            if (i > 0 && arr[i] == arr[i - 1]) {
+                continue; // Bỏ qua phần tử trùng lặp ở i
+            }
+            while (left < right) {
+                int sum = arr[i] + arr[left] + arr[right];
+                if (sum == 0) {
+                    List<Integer> tempt = new ArrayList<>();
+                    tempt.add(arr[i]);
+                    tempt.add(arr[left]);
+                    tempt.add(arr[right]);
+                    threeSum.add(tempt);
+                    
+                    // Di chuyển con trỏ và bỏ qua các phần tử trùng lặp
+                    while (left < right && arr[left] == arr[left + 1]) left++;
+                    while (left < right && arr[right] == arr[right - 1]) right--;
+                    
+                    // Sau khi xử lý trùng lặp, di chuyển con trỏ left và right
+                    left++;
+                    right--;
+
+                } else if (sum < 0) {
+                    left++;  // Tổng nhỏ hơn 0, tăng left
+                } else {
+                    right--; // Tổng lớn hơn 0, giảm right
+                }
+            }
+        }
+        return threeSum;
+    }
+}
