@@ -1,0 +1,29 @@
+class Solution
+{
+
+    /**
+     * @param String $s
+     * @param Integer $numRows
+     * @return String
+     */
+    function convert($s, $numRows)
+    {
+         if($numRows == 1){
+            return $s; 
+         }
+
+        $currentRow = 0;
+        $goDown = false;
+        $maxtrixChar = array();
+
+        for ($i = 0; $i < strlen($s); $i++) {
+            $maxtrixChar[$currentRow] .= $s[$i];
+            if ($currentRow == 0 || $currentRow == (int)$numRows - 1) {
+                $goDown = ! $goDown;
+            }
+            $currentRow += $goDown ? 1 : -1;
+        }
+      
+    return  implode("",$maxtrixChar);}
+  
+}
