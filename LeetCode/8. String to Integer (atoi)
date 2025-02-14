@@ -1,0 +1,42 @@
+
+class Solution {
+
+    /**
+     * @param String $s
+     * @return Integer
+     */
+    function myAtoi($s) {
+    $s =trim($s);
+    if($s ===""){
+        return 0; 
+    } 
+    $isNegative = false ; 
+    $i = 0; // start point
+    if($s[0] == '+' or $s[0] == '-' ){
+        $i =1; 
+        if($s[0] == '-'){
+         $isNegative = true; 
+        }
+    }
+    $integer = "" ; 
+    
+    for($j = $i ; $j < strlen($s) ; $j++ ){
+        if($s[$j] > '9' or $s[$j] < '0'){
+            break; 
+        }
+       $integer .= $s[$j]; 
+    }
+    $integer = (int)$integer;
+    if($isNegative){
+        $integer = -$integer; 
+    }
+    $maxvalue = 2**31 ; 
+    if($integer > $maxvalue -1){
+        return  $maxvalue  -1; 
+    }
+    if($integer < -$maxvalue ){
+      return -$maxvalue; 
+    }
+    return $integer; 
+}
+}
