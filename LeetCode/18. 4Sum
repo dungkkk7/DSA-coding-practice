@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    
+    public List<List<Integer>> fourSum(int[] arr, int target) {
+        
+        List<List<Integer>> fourSum = new ArrayList<>();
+        int n = arr.length;
+       if(arr == null || arr.length < 4){
+            return fourSum;
+        }
+        // Sắp xếp mảng
+        Arrays.sort(arr);
+
+        for (int i = 0; i < n - 3; i++) {
+            if (i > 0 && arr[i] == arr[i - 1]) {
+                continue; // Bỏ qua số trùng lặp
+            }
+            for (int j = i + 1; j < n - 2; j++) {
+                if (j > i + 1 && arr[j] == arr[j - 1]) {
+                    continue; // Bỏ qua số trùng lặp
+                }
+                int left = j + 1;
+                int right = n - 1;
+
+                while (left < right) {
+                    long sum_four_tempt = (long) arr[i] + arr[j] + arr[left] + arr[right]; // Sử dụng long để tránh tràn số
+
+                    if (sum_four_tempt == target) {
+                        fourSum.add(Arrays.asList(arr[i], arr[j], arr[left], arr[right]));
+
+                        // Loại bỏ các phần tử trùng lặp
+                        while (left < right && arr[left] == arr[left + 1]) {
+                            left++;
+                        }
+                        while (left < right && arr[right] == arr[right - 1]) {
+                            right--;
+                        }
+
+                        // Tăng và giảm con trỏ
+                        left++;
+                        right--;
+                    } else if (sum_four_tempt < target) {
+                        left++;
+                    } else {
+                        right--;
+                    }
+                }
+            }
+        }
+
+        return fourSum;
+    }
+}
