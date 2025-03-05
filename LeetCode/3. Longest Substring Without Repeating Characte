@@ -1,0 +1,24 @@
+class Solution {
+    function lengthOfLongestSubstring($s) {
+        $left = 0;
+        $maxlength = 0;
+        $charMap = [];
+
+        for ($right = 0; $right < strlen($s); $right++) {
+            $char = $s[$right];
+
+            if (isset($charMap[$char]) && $charMap[$char] >= $left) {
+                // Update the left pointer to the position right after the last occurrence of the current character
+                $left = $charMap[$char] + 1;
+            }
+
+            // Update the character's latest position in the map
+            $charMap[$char] = $right;
+
+            // Calculate the length of the current substring and update the maximum length
+            $maxlength = max($maxlength, $right - $left + 1);
+        }
+
+        return $maxlength;
+    }
+}

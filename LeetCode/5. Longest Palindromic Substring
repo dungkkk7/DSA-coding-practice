@@ -1,0 +1,38 @@
+class Solution {
+
+    /**
+     * @param String $s
+     * @return String
+     */
+    function longestPalindrome($s) {
+        $strlen = strlen($s);
+        $max = 1;
+        $start = 0;
+
+        if (strlen($s) <2) {
+            return $s;
+        }
+
+        for ($i = 0; $i < $strlen; $i++) {
+            $th1 = $this->expandAround($i, $i, $s);
+            $th2 = $this->expandAround($i, $i + 1, $s);
+            $len = max($th1, $th2);
+
+            if ($len > $max) {
+                $start = $i - intval(($len - 1) / 2);
+                $max = $len;
+            }
+        }
+
+        return substr($s, $start, $max);
+    }
+
+    function expandAround($left, $right, $str) {
+        while ($left >= 0 && $right < strlen($str) && $str[$left] === $str[$right]) {
+            $left--;
+            $right++;
+        }
+
+        return $right - $left - 1;
+    }
+}

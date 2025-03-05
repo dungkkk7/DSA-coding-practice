@@ -1,0 +1,43 @@
+class Solution
+{
+
+    /**
+     * @param ListNode $l1
+     * @param ListNode $l2
+     * @return ListNode
+     */
+    function addTwoNumbers($l1, $l2)
+    {
+        $head = new ListNode(0);
+        $current = new ListNode();
+        $current = $head;
+        $carry = 0;
+
+        while (true) {
+           
+            
+            $l1Val = $l1 == null ? 0 : $l1->val;
+            $l2Val = $l2 == null ? 0 : $l2->val;
+            $current->val = ($l1Val + $l2Val + $carry) % 10;
+            $carry = intdiv(($l1Val + $l2Val + $carry), 10);
+
+
+            $l1 = $l1->next;
+            $l2 = $l2->next;
+            if (($l1 == null && $l2 == null)) {
+
+                break;
+            }
+            $current->next = new ListNode();
+            $current = $current->next;
+
+           
+        }
+        if (intval($carry) > 0) {
+            $current->next = new ListNode($carry);
+        } else {
+            $current = null; 
+        }
+        return $head;
+    }
+}
